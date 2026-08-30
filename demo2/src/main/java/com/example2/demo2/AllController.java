@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
-public class Controller {
+public class AllController {
 
     @GetMapping("/hello")
     public String Hello() {
