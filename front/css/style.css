@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #cddded;
+
+    padding: 30px 40px;
+}
+
+.logo a{
+    text-decoration: none;
+    color:black;
+}
+
+nav ul{
+    display: flex;
+    list-style: none;
+    gap: 20px;   
+}
+
+nav li a{
+    text-decoration: none;
+    color: black;
+}

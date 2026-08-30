@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+#register_form{
+    display:flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 60%;
+    margin: 10px auto;
+}
