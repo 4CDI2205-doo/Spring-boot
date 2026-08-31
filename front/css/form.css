@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
-.register_form{
+/* フォームレイアウト */
+#register_form, #newlogin_form, #login_form{
     display:flex;
     flex-direction: column;
     gap: 10px;
@@ -8,8 +9,13 @@
     margin: 10px auto;
 }
 
+.register_form textarea{
+    resize: none;
+}
+
 #form_submit{
     width: 100px;
     margin-right: 0;
     margin-left: auto;
 }
+
