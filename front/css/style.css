@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+/* ヘッダー関連 */
 header{
     display: flex;
     align-items: center;
@@ -23,4 +24,9 @@ nav ul{
 nav li a{
     text-decoration: none;
     color: black;
+}
+
+/* 全体のレイアウト */
+.container{
+    margin: 0 15vw;
 }
