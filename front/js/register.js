@@ -1,3 +1,4 @@
+// 新規登録ユーザー
 document.getElementById("newlogin_form").addEventListener("submit",() => {
     event.preventDefault();
     const user_Name = document.getElementById("user_name").value;
@@ -20,11 +21,24 @@ document.getElementById("newlogin_form").addEventListener("submit",() => {
         date: user_Date,
     };
 
-    fetch ("http://localhost:8080/api/entry", {
+    console.log(newlogin_formdata);
+
+    fetch ("http://localhost:8081/api/newlogin", {
         method: "POST",
         headers: {
             "Content-type": "application/json",
         },
         body: JSON.stringify(newlogin_formdata)     
     })
-})
+    .then((response) => {
+        if (!response.ok){
+            window.alert("登録に失敗しました。入力を確認してください");
+            console.log(response.status);
+        }else{
+            window.alert("登録が完了しました。");
+        }
+    })
+    .catch((error) => {
+        console.error("Error:", error);
+    });
+});
