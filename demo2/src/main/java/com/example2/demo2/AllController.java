@@ -20,7 +20,7 @@ public class AllController{
 
     @PostMapping("/newlogin")
     public ResponseEntity<String> newLogin(@RequestBody User user){
-        if (user.getName() == null || user.getName().isBlank() || user.getEmail() == null || user.getEmail().isBlank() || user.getPassword() == null || user.getPassword().isBlank() || user.getSchool() == null || user.getSchool().isBlank() || user.getFaculty() == null || user.getFaculty().isBlank() || user.getDepartment() == null || user.getDepartment().isBlank() || user.getAge() <= 0 || user.getDate() == null || user.getDate().isBlank()){
+        if (user.getName().isBlank() || user.getEmail().isBlank() ||  user.getPassword().isBlank() || user.getSchool().isBlank() || user.getFaculty().isBlank() || user.getDepartment().isBlank() || user.getAge() < 0 || user.getDate().isBlank()){
             return new ResponseEntity<String>("入力が不十分です。",HttpStatus.BAD_REQUEST);
         }
         for (int i = 0; i < users.size(); i++){
@@ -31,5 +31,4 @@ public class AllController{
         users.add(user);
         return new ResponseEntity<String>("ユーザー登録が完了しました。",HttpStatus.OK);
     }
-
 }
