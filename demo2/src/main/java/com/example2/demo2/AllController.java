@@ -6,29 +6,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.http.HttpStatus;
-import java.util.List;
-import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://127.0.0.1:5500")
 public class AllController{
-    //ユーザー情報を保存するリスト
-    private List<User> users = new ArrayList<>();
+    private final UserRepository userRepository;
+    
+    public AllController(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
 
     @PostMapping("/newlogin")
-    public ResponseEntity<String> newLogin(@RequestBody User user){
-        if (user.getName().isBlank() || user.getEmail().isBlank() ||  user.getPassword().isBlank() || user.getSchool().isBlank() || user.getFaculty().isBlank() || user.getDepartment().isBlank() || user.getAge() < 0 || user.getDate().isBlank()){
-            return new ResponseEntity<String>("入力が不十分です。",HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> newLogin(@Validated @RequestBody User user){
+        if (userRepository.existsByEmail(user.getEmail())){
+            return new ResponseEntity<>("このユーザーはすでに登録されています。",HttpStatus.CONFLICT);
         }
-        for (int i = 0; i < users.size(); i++){
-            if (users.get(i).getEmail() == user.getEmail() || users.get(i).getId() == user.getId() || users.get(i).getPassword() == user.getPassword()){
-                return new ResponseEntity<>("このユーザーはすでに登録されています。",HttpStatus.CONFLICT);
-            }
-        }
-        users.add(user);
+        userRepository.save(user);
         return new ResponseEntity<String>("ユーザー登録が完了しました。",HttpStatus.OK);
     }
 }
