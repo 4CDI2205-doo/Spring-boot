@@ -50,7 +50,7 @@ function formConfirm(formdata){
     `生年月日：${formdata.date}<br>`;
 
     // はいボタン
-    yesButton.addEventListener("click", () => {
+    yesButton.onclick = () => {
         console.log(formdata);
         fetch ("http://localhost:8081/api/newlogin", {
             method: "POST",
@@ -60,14 +60,20 @@ function formConfirm(formdata){
             body: JSON.stringify(formdata)     
         })
         .then((response) => {
-            if (!response.ok){
-                errorPopup();
-                console.log(response.status);
-            }else{
-                //成功
-                successPopup();
-                // ログインページに移動
-                window.location.href = "login.html";
+            if(!response.ok){
+                return response.json();
+            }
+            successPopup();
+            // window.location.href = "login.html";
+            return null;
+        })
+        .then((data) => {
+            if (data){
+                const errorList = Object.values(data);
+                form_errorPopup(errorList);
+                // 確認ログ
+                console.log(errorList);
+                console.log(data);
             }
         })
         .catch((error) => {
@@ -75,7 +81,7 @@ function formConfirm(formdata){
             errorPopup();
             console.error("Error:", error);
         });
-    })
+    }
 }
 
 // 閉じるボタン
@@ -110,40 +116,40 @@ document.getElementById("newlogin_form").addEventListener("submit",(event) => {
         school: user_School,
         faculty: user_Faculty,
         department: user_Department,
-        age: parseInt(user_Age,10),
-        date: user_Date,
+        age: user_Age === "" ? null : parseInt(user_Age,10),
+        date: user_Date === "" ? null : user_Date,
     };
 
-    errorList = [];
+    // errorList = [];
     // 入力確認
-    if (!user_Name.trim()){
-        errorList.push("名前を入力してください");
-    }
-    if (!user_Email.trim()){
-        errorList.push("Emailを入力してください");
-    }
-    if (!user_Pass.trim()){
-        errorList.push("パスワードを入力してください");
-    }
-    if (!user_School.trim()){
-        errorList.push("所属学校を入力してください");
-    }
-    if (!user_Faculty.trim()){
-        errorList.push("所属学部を入力して下さい");
-    }
-    if (!user_Department.trim()){
-        errorList.push("学科を入力してください");
-    }
-    if (user_Age.trim() === '' || user_Age.trim() === null || user_Age.trim() === undefined || user_Age.trim() < 0){
-        errorList.push("年齢を入力してください");
-    }
-    if (!user_Date.trim()){
-        errorList.push("生年月日を入力してください");
-    }
-    if (errorList.length > 0){
-        form_errorPopup(errorList)
-        return;
-    }
+    // if (!user_Name.trim()){
+    //     errorList.push("名前を入力してください");
+    // }
+    // if (!user_Email.trim()){
+    //     errorList.push("Emailを入力してください");
+    // }
+    // if (!user_Pass.trim()){
+    //     errorList.push("パスワードを入力してください");
+    // }
+    // if (!user_School.trim()){
+    //     errorList.push("所属学校を入力してください");
+    // }
+    // if (!user_Faculty.trim()){
+    //     errorList.push("所属学部を入力して下さい");
+    // }
+    // if (!user_Department.trim()){
+    //     errorList.push("学科を入力してください");
+    // }
+    // if (user_Age.trim() === '' || user_Age.trim() === null || user_Age.trim() === undefined || user_Age.trim() < 0){
+    //     errorList.push("年齢を入力してください");
+    // }
+    // if (!user_Date.trim()){
+    //     errorList.push("生年月日を入力してください");
+    // }
+    // if (errorList.length > 0){
+    //     form_errorPopup(errorList)
+    //     return;
+    // }
     // 登録確認画面表示
     formConfirm(newlogin_formdata);
 });

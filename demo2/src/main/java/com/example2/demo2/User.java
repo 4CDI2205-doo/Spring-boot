@@ -22,7 +22,7 @@ public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    // 送信内容の確認
+    // 送信内容の確認と定数指定
     @NotBlank(message="名前を入力してください")
     private String name;
 
@@ -42,7 +42,7 @@ public class User{
     @NotBlank(message="学科名を入力してください")
     private String department;
 
-    @NotBlank(message="年齢を入力してください")
+    @NotNull(message="年齢を入力してください")
     @Min(value = 0,message="年齢は0以上で入力してください")
     private Integer age;
 
@@ -53,7 +53,7 @@ public class User{
     public User(){
     }
     // 自分用Userコンストラクタ
-    public User(String name, String email,String password,String school,String faculty, String department, int age, LocalDate date){
+    public User(String name, String email,String password,String school,String faculty, String department, Integer age, LocalDate date){
         this.name = name;
         this.email = email;
         this.password = password;

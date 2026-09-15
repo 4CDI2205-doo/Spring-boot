@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 
 @RestController
@@ -22,11 +22,11 @@ public class AllController{
     }
 
     @PostMapping("/newlogin")
-    public ResponseEntity<String> newLogin(@Validated @RequestBody User user){
+    public ResponseEntity<?> newLogin(@Valid @RequestBody User user){
         if (userRepository.existsByEmail(user.getEmail())){
-            return new ResponseEntity<>("このユーザーはすでに登録されています。",HttpStatus.CONFLICT);
+            throw new DuplicateEmailException("このユーザーはすでに登録されています。");
         }
         userRepository.save(user);
-        return new ResponseEntity<String>("ユーザー登録が完了しました。",HttpStatus.OK);
+        return new ResponseEntity<>("ユーザー登録が完了しました。",HttpStatus.OK);
     }
 }
