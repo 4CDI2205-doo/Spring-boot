@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>エントリーシート管理アプリ</title>
 
-        <script src="js/script.js" defer></script>
+        <script src="js/login.js" defer></script>
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/form.css">
     </head>
@@ -24,6 +24,20 @@
                     <button id="form_submit" type="submit">送信</button>
                 </form>
             </div>
+            <!-- popupの型 -->
+            <div id="popup" class="popup">
+                <div class="popupContent">
+                    <h1 id="popupTitle"></h1>
+                    <hr>
+                    <p id="popupMessage"></p>
+                    <button id="closeButton">閉じる</button>
+                    <div class = "twoButtonControl">
+                        <button id="yesButton">はい</button>
+                        <button id="noButton">いいえ</button>
+                    </div>
+                </div>
+            </div>
+            <!-- ここまでpopup -->
         </main>
         
     </body>
