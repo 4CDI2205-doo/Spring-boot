@@ -37,8 +37,8 @@ public class SecurityConfig {
         configuration.setAllowedHeaders(
                 List.of("*")
         );
-        CorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         // URL管理
+        CorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         ((UrlBasedCorsConfigurationSource) source).registerCorsConfiguration("/**", configuration);
 
         return source;
@@ -50,7 +50,7 @@ public class SecurityConfig {
             .cors(cors -> {})
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/user/newlogin","/user/login","/user/session-check").permitAll()
+                .requestMatchers("/user/newlogin","/user/login","/user/session-check","/user/logout").permitAll()
                 .anyRequest().authenticated()
             );
 

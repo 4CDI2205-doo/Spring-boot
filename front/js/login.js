@@ -40,7 +40,7 @@ document.getElementById("login_form").addEventListener("submit",function(event){
         password: login_Password
     }
 
-    fetch ("http://localhost:8081/user/login", {
+    fetch ("http://127.0.0.1:8081/user/login", {
             method: "POST",
             headers: {
                 "Content-type": "application/json",

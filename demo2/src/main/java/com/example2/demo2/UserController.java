@@ -58,14 +58,17 @@ public class UserController{
                 .body(Map.of("login","メールアドレスまたはパスワードが正しくありません"));
         }
         session.setAttribute("userId",foundUser.getId());
+        System.out.println("ログイン時 sessionId: " + session.getId());
+        System.out.println("保存したuserId: " + session.getAttribute("userId"));
         return ResponseEntity.ok().build();
     }
 
     // セッション確認
     @GetMapping("/session-check")
     public ResponseEntity<?> sessionCheck(HttpSession session){
+        System.out.println("確認時 sessionId: " + session.getId());
         Object userId = session.getAttribute("userId");
-
+        System.out.println("確認時 userId: " + userId);
         if (userId == null){
             return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
@@ -73,5 +76,13 @@ public class UserController{
             ));
         }
         return ResponseEntity.ok(Map.of("userId",userId));
+    }
+
+    // ログアウト
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpSession session) {
+        // session解消
+        session.invalidate();
+        return ResponseEntity.ok().build();
     }
 }

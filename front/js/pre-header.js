@@ -3,6 +3,7 @@ const head_script = `
     <div class="logo">
         <a href="Home.html">仮ロゴ</a>
     </div>
-    `;
+</header>
+`;
 
 document.getElementById("pre-headerplaceholder").innerHTML = head_script;

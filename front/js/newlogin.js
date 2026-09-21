@@ -52,7 +52,7 @@ function formConfirm(formdata){
     // はいボタン
     yesButton.onclick = () => {
         console.log(formdata);
-        fetch ("http://localhost:8081/user/newlogin", {
+        fetch ("http://127.0.0.1:8081/user/newlogin", {
             method: "POST",
             headers: {
                 "Content-type": "application/json",

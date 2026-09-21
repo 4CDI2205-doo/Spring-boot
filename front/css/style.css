@@ -26,6 +26,19 @@ nav li a{
     color: black;
 }
 
+.logout-button {
+    background: none;
+    border: none;
+
+    color: #f50707;
+
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    text-decoration: none;
+}
+
 /* 全体のレイアウト */
 .container{
     margin: 0 15vw;
