@@ -33,7 +33,7 @@ function errorPopup(){
     popupMessage.innerHTML = "時間をおいて再度お試しください";
 }
 
-// 登録確認ボタン
+// 登録確認ポップアップ
 function formConfirm(formdata){
     popup.style.display = "flex";
     yesButton.style.display = "flex";
@@ -52,7 +52,7 @@ function formConfirm(formdata){
     // はいボタン
     yesButton.onclick = () => {
         console.log(formdata);
-        fetch ("http://localhost:8081/api/newlogin", {
+        fetch ("http://localhost:8081/user/newlogin", {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
@@ -63,8 +63,8 @@ function formConfirm(formdata){
             if(!response.ok){
                 return response.json();
             }
-            successPopup();
-            // window.location.href = "login.html";
+            // successPopup();
+            window.location.href = "login.html";
             return null;
         })
         .then((data) => {
@@ -85,17 +85,17 @@ function formConfirm(formdata){
 }
 
 // 閉じるボタン
-closeButton.addEventListener("click", () => {
+closeButton.addEventListener("click",function(){
     popup.style.display = "none";
-})
+});
 
 // いいえボタン
-noButton.addEventListener("click", () => {
+noButton.addEventListener("click",function(){
     popup.style.display = "none";
-})
+});
 
 // 新規登録ユーザー
-document.getElementById("newlogin_form").addEventListener("submit",(event) => {
+document.getElementById("newlogin_form").addEventListener("submit",function(event){
     event.preventDefault();
 
     //ユーザーフォームの値を取得　

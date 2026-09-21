@@ -52,6 +52,7 @@ public class User{
     // JPAがDBから取得したデータをUserオブジェクトとして復元する際などに使用する引数なしコンストラクタ
     public User(){
     }
+    
     // 自分用Userコンストラクタ
     public User(String name, String email,String password,String school,String faculty, String department, Integer age, LocalDate date){
         this.name = name;
