@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ja">
     <head>
-        <meta charset="UTF=8">
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>エントリーシート管理アプリ</title>
 
@@ -18,17 +18,31 @@
             <div class="container">
                 <h1 class="main_target">新規登録</h1>
                 <form id="register_form">
-                    <label for="user_PR">自己PR：</label>
-                    <textarea id="user_PR" rows="10" placeholder="ここに自己PRを400文字ほどで書いてください"></textarea>
-                    <label for="user_CH">学生時代に力を入れたこと：</label>
-                    <textarea id="user_CH" rows="10" placeholder="ここにガクチカを400文字ほどで書いてください"></textarea>
-                    <label for="user_strong">あなたの強み：</label>
-                    <textarea id="user_strong" rows="10" placeholder="ここにあなたの強みを400文字ほどで書いてください"></textarea>
-                    <label for="user_PR">あなたの弱み：</label>
-                    <textarea id="user_PR" rows="10" placeholder="ここにあなたの弱みを400文字ほどで書いてください"></textarea>
+                    <label for="company_name">企業名：</label>
+                    <input type="text" id="company_name" placeholder="例：NTTデータ">
+                    <label for="employee_counter">従業員数：</label>
+                    <input type="number" id="employee_counter" placeholder="例：800" min="0">
+                    <label for="starting_salary">初任給：</label>
+                    <input type="number" id="starting_salary" placeholder="例：3000000" min="0">
+                    <label for="annual_holidays">年間休日：</label>
+                    <input type="number" id="annual_holidays" placeholder="例：120" min="0">
                     <button id="form_submit" type="submit">送信</button>
                 </form>
             </div>
+            <!-- popupの型 -->
+            <div id="popup" class="popup">
+                <div class="popupContent">
+                    <h1 id="popupTitle"></h1>
+                    <hr>
+                    <p id="popupMessage"></p>
+                    <button id="closeButton">閉じる</button>
+                    <div class = "twoButtonControl">
+                        <button id="yesButton">はい</button>
+                        <button id="noButton">いいえ</button>
+                    </div>
+                </div>
+            </div>
+            <!-- ここまでpopup -->
         </main>
     </body>
 </html>
