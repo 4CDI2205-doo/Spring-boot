@@ -44,4 +44,10 @@ public class GlobalExceptionHandler {
         errors.put("email",e.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errors);
     }
+
+    // 企業名が重複した際のエラーハンドリング
+    // @ExceptionHandler(DuplicateCompanyNameException.class)
+    // public ResponseEntity<Map<String,String>> handDuplicateCompanyName(DuplicateCompanyNameException e){
+        
+    // }
 }
