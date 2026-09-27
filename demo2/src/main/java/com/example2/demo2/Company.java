@@ -6,10 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name="companies")
 @Data
 public class Company {
     @Id 

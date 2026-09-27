@@ -50,9 +50,12 @@ public class SecurityConfig {
             .cors(cors -> {})
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/user/newlogin","/user/login","/user/session-check","/user/logout").permitAll()
+                .requestMatchers(
+                    "/user/**",
+                    "/company/**"
+                ).permitAll()
                 .anyRequest().authenticated()
-            );
+                );
 
         return http.build();
     }

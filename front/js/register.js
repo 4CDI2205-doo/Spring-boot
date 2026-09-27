@@ -55,6 +55,7 @@ function formConfirm(formdata){
             headers: {
                 "Content-type": "application/json",
             },
+            credentials: "include",
             body: JSON.stringify(formdata)     
         })
         .then((response) => {
