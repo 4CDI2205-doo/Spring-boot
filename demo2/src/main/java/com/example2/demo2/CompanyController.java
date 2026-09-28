@@ -16,14 +16,10 @@ import java.util.Optional;
 @RestController 
 @RequestMapping("/company")
 public class CompanyController {
-    private final CompanyRepository companyRepository;
-    private final UserCompanyRepository userCompanyRepository;
-    private final UserRepository userRepository;
+    private final CompanyService companyService;
 
-    public CompanyController(CompanyRepository companyRepository,UserCompanyRepository userCompanyRepository,UserRepository userRepository){
-        this.companyRepository = companyRepository;
-        this.userCompanyRepository = userCompanyRepository;
-        this.userRepository = userRepository;
+    public CompanyController(CompanyService companyService){
+        this.companyService = companyService;
     }
 
     @PostMapping("/register")
@@ -36,7 +32,7 @@ public class CompanyController {
                 .body(Map.of("message","ログインが必要です"));
         }
         // ログインしているUserを取得
-        Optional<User> existingUser = userRepository.findById(userId);
+        Optional<User> existingUser = companyService.findUserById(userId);
         if (existingUser.isEmpty()){
             return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
@@ -45,24 +41,10 @@ public class CompanyController {
         User user = existingUser.get();
 
         // Companyを取得
-        Optional<Company> existingCompany = companyRepository.findByCompanyName(request.getCompanyName());
-        Company company;
-        if (existingCompany.isPresent()){
-            // すでに登録されている企業
-            company = existingCompany.get();
-        }else{
-            // まだ登録されていない企業
-            company = new Company();
-            
-            company.setCompanyName(request.getCompanyName());
-            company.setEmployeeCount(request.getEmployeeCount());
-            company.setStartingSalary(request.getStartingSalary());
-            company.setAnnualHolidays(request.getAnnualHolidays());
-
-            company = companyRepository.save(company);
-        }
+        Company company = companyService.findOrCreateCompany(request);
+        
         // 同じユーザーの重複登録防止
-        boolean alreadyRegistered = userCompanyRepository.existsByUserAndCompany(user, company);
+        boolean alreadyRegistered = companyService.isAlreadyRegistered(user,company);
         if (alreadyRegistered){
             return ResponseEntity
                 .status(HttpStatus.CONFLICT)
@@ -70,15 +52,7 @@ public class CompanyController {
         }
 
         // UserCompany関連
-        UserCompany userCompany = new UserCompany();
-        // 上で設定したcompanyを登録
-        userCompany.setUser(user);
-        userCompany.setCompany(company);
-        userCompany.setInterestLevel(request.getInterestLevel());
-        userCompany.setSelectionStatus(request.getSelectionStatus());
-        userCompany.setNextDate(request.getNextDate());
-
-        userCompanyRepository.save(userCompany);
+        UserCompany userCompany = companyService.createUserCompany(user,company,request);
 
         return ResponseEntity
             .status(HttpStatus.CREATED)
