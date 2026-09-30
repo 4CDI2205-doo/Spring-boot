@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import java.util.Map;
-import java.util.Optional;
 
 @RestController 
 @RequestMapping("/company")
@@ -31,28 +30,9 @@ public class CompanyController {
                 .status(HttpStatus.UNAUTHORIZED)
                 .body(Map.of("message","ログインが必要です"));
         }
-        // ログインしているUserを取得
-        Optional<User> existingUser = companyService.findUserById(userId);
-        if (existingUser.isEmpty()){
-            return ResponseEntity
-                .status(HttpStatus.UNAUTHORIZED)
-                .body(Map.of("message","ユーザーが存在しません"));
-        }
-        User user = existingUser.get();
 
-        // Companyを取得
-        Company company = companyService.findOrCreateCompany(request);
-        
-        // 同じユーザーの重複登録防止
-        boolean alreadyRegistered = companyService.isAlreadyRegistered(user,company);
-        if (alreadyRegistered){
-            return ResponseEntity
-                .status(HttpStatus.CONFLICT)
-                .body(Map.of("message","この企業はすでに登録されています"));
-        }
-
-        // UserCompany関連
-        UserCompany userCompany = companyService.createUserCompany(user,company,request);
+        // UserCompany登録
+        UserCompany userCompany = companyService.registerCompany(userId,request);
 
         return ResponseEntity
             .status(HttpStatus.CREATED)

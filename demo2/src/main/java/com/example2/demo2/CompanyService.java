@@ -33,7 +33,7 @@ public class CompanyService {
         return companyRepository.save(company);
     }
 
-    // 会社が登録されていればオブジェクト返し、なければ新規登録
+    // 会社が登録されていればオブジェクトを返し、なければ新規登録
     public Company findOrCreateCompany(CompanyRegisterRequest request){
         Optional<Company> existingCompany = findCompanyByName(request.getCompanyName());
         // 企業が存在した場合
@@ -69,5 +69,19 @@ public class CompanyService {
         userCompany.setNextDate(request.getNextDate());
 
         return userCompanyRepository.save(userCompany);
+    }
+
+    // 一連の作業を行うメソッド
+    public UserCompany registerCompany(Long userId,CompanyRegisterRequest request){
+        User user = findUserById(userId)
+            .orElseThrow(() -> new UserNotFoundException("ユーザーが存在しません"));
+
+        Company company = findOrCreateCompany(request);
+
+        if (isAlreadyRegistered(user,company)){
+            throw new CompanyAlreadyRegisteredException("この企業はすでに登録されています");
+        }
+        
+        return createUserCompany(user,company,request);
     }
 }
