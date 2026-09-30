@@ -63,7 +63,6 @@ function formConfirm(formdata){
                 return response.json();
             }
             successPopup();
-            // window.location.href = "login.html";
             return null;
         })
         .then((data) => {

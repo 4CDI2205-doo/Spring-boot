@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
         // getBindingResult()はバリデーション結果の取得が出来る
         BindingResult result = e.getBindingResult();
 
-        // リストバリデーション結果をすべて受け取る
+        // リストでバリデーション結果をすべて受け取る
         List<FieldError> fieldErrors = result.getFieldErrors();
 
         // new HashMapはからのMapを作成している。
@@ -45,9 +45,26 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errors);
     }
 
-    // 企業名が重複した際のエラーハンドリング
-    // @ExceptionHandler(DuplicateCompanyNameException.class)
-    // public ResponseEntity<Map<String,String>> handDuplicateCompanyName(DuplicateCompanyNameException e){
+    // ユーザーが企業を重複登録した際のエラーハンドリング
+    @ExceptionHandler(CompanyAlreadyRegisteredException.class)
+    public ResponseEntity<Map<String,String>> handleCompanyAlreadyRegisteredException(CompanyAlreadyRegisteredException e){
+        Map<String,String> errors = new HashMap<>();
+        errors.put("message",e.getMessage());
+
+        return ResponseEntity
+            .status(HttpStatus.CONFLICT)
+            .body(errors);
+    }
+
+    // ユーザーがすでに登録されていた場合のエラーハンドリング
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Map<String,String>> handleUserNotFoundException(UserNotFoundException e){
+        Map<String,String> errors = new HashMap<>();
+        errors.put("message",e.getMessage());
         
-    // }
+        return ResponseEntity
+            .status(HttpStatus.UNAUTHORIZED)
+            .body(errors);
+    }
 }
+
