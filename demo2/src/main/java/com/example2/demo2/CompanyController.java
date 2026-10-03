@@ -6,11 +6,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import java.util.Map;
+import java.util.List;
 
 @RestController 
 @RequestMapping("/company")
@@ -37,5 +39,25 @@ public class CompanyController {
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .body(userCompany);
+    }
+
+    // 企業情報の取得
+    @GetMapping("/list")
+    public ResponseEntity<?> getCompanyList(HttpSession session){
+        // userIdを取得
+        Long userId = (Long)session.getAttribute("userId");
+        if (userId == null){
+            return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(Map.of("message","ログインが必要です"));
+        }
+
+        // 企業情報の取得
+        List<UserCompany> userCompanies = companyService.getUserCompanies(userId);
+
+        // 企業情報の返却
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(userCompanies);
     }
 }

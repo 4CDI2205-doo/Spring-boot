@@ -7,6 +7,7 @@
 
         <script src="js/header.js" defer></script>
         <script src="js/share.js" defer></script>
+        <script src="js/Home.js" defer></script>
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
@@ -15,5 +16,20 @@
 
         <!-- JavaScriptでここに履歴を挿入 -->
         <div id="history"></div>
+
+        <!-- popupの型 -->
+        <div id="popup" class="popup">
+            <div class="popupContent">
+                <h1 id="popupTitle"></h1>
+                <hr>
+                <p id="popupMessage"></p>
+                <button id="closeButton">閉じる</button>
+                <div class = "twoButtonControl">
+                    <button id="yesButton">はい</button>
+                    <button id="noButton">いいえ</button>
+                </div>
+            </div>
+        </div>
+        <!-- ここまでpopup -->
     </body>
 </html>

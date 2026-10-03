@@ -2,6 +2,7 @@ package com.example2.demo2;
 
 import org.springframework.stereotype.Service;
 import java.util.Optional;
+import java.util.List;
 
 @Service
 public class CompanyService {
@@ -83,5 +84,12 @@ public class CompanyService {
         }
         
         return createUserCompany(user,company,request);
+    }
+
+    // 企業情報の取得
+    public List<UserCompany> getUserCompanies(Long userId){
+        User user = findUserById(userId)
+            .orElseThrow(() -> new UserNotFoundException("ユーザーが存在しません"));
+        return userCompanyRepository.findByUser(user);
     }
 }
