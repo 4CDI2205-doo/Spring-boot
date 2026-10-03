@@ -53,7 +53,7 @@ public class CompanyController {
         }
 
         // 企業情報の取得
-        List<UserCompany> userCompanies = companyService.getUserCompanies(userId);
+        List<CompanyListResponse> userCompanies = companyService.getUserCompanies(userId);
 
         // 企業情報の返却
         return ResponseEntity

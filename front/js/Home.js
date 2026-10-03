@@ -18,7 +18,7 @@ fetch ("http://127.0.0.1:8081/company/list",{
     return response.json();
 })
 .then((data) => {
-    if (data){
+    if (data.length > 0){
         console.log("会社情報の取得に成功しました");
         console.log(data);
     }
