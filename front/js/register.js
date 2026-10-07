@@ -42,9 +42,9 @@ function formConfirm(formdata){
     popupTitle.textContent = "登録確認";
     popupMessage.innerHTML = 
     `企業名：${formdata.companyName}<br>` +
-    `従業員数:${formdata.employeeCount}<br>人` +
-    `初任給：${formdata.startingSalary}<br>円` +
-    `年間休日：${formdata.annualHolidays}<br>日`
+    `従業員数:${formdata.employeeCount}人<br>` +
+    `初任給：${formdata.startingSalary}円<br>` +
+    `年間休日：${formdata.annualHolidays}日<br>`
     ;
 
     // はいボタン

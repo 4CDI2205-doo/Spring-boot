@@ -2,6 +2,8 @@ package com.example2.demo2;
 
 import org.springframework.stereotype.Service;
 import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CompanyService {
@@ -83,5 +85,26 @@ public class CompanyService {
         }
         
         return createUserCompany(user,company,request);
+    }
+
+    // 企業情報の取得
+    public List<CompanyListResponse> getUserCompanies(Long userId){
+        User user = findUserById(userId)
+            .orElseThrow(() -> new UserNotFoundException("ユーザーが存在しません"));
+
+        List<UserCompany> userCompanies = userCompanyRepository.findByUser(user);  
+        List<CompanyListResponse> responses = new ArrayList<>();
+        
+        for (UserCompany userCompany : userCompanies){
+            CompanyListResponse response = new CompanyListResponse();
+            response.setCompanyName(userCompany.getCompany().getCompanyName());
+            response.setEmployeeCount(userCompany.getCompany().getEmployeeCount());
+            response.setStartingSalary(userCompany.getCompany().getStartingSalary());                response.setAnnualHolidays(userCompany.getCompany().getAnnualHolidays());
+            response.setInterestLevel(userCompany.getInterestLevel());
+            response.setSelectionStatus(userCompany.getSelectionStatus());
+            response.setNextDate(userCompany.getNextDate());
+            responses.add(response);
+        }
+        return responses;
     }
 }
