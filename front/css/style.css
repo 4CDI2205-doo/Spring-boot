@@ -43,3 +43,30 @@ nav li a{
 .container{
     margin: 0 15vw;
 }
+
+/* 企業リスト */
+.history{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px;
+
+}
+
+.cardItem{
+  border-radius: 5px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  padding: 10px;
+  text-align: center;
+  width: calc((100% - 20px) / 3);
+}
+
+.cardItem h1{
+    font-size: 1.25rem;
+}
+
+.cardItem p{
+    font-size: 0.75rem;
+}
