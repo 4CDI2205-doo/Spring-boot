@@ -60,4 +60,23 @@ public class CompanyController {
             .status(HttpStatus.OK)
             .body(userCompanies);
     }
+
+    // 検索企業
+    @PostMapping("/search")
+    public ResponseEntity<?> getSearchCompany(@Valid @RequestBody CompanySearchRequest request,HttpSession session){
+        // userIdを取得
+        Long userId = (Long)session.getAttribute("userId");
+        if (userId == null){
+            return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(Map.of("message","ログインが必要です"));
+        }
+        
+        // 企業名検索
+        List<CompanySearchResponse> companySearchResponse = companyService.searchCompany(request.getCompanyName());
+        System.out.println(companySearchResponse);
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(companySearchResponse);
+    }
 }

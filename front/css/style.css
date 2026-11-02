@@ -45,12 +45,23 @@ nav li a{
 }
 
 /* 企業リスト */
+#companyListMain{
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+#companyRegisterListMain{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .history{
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     margin: 10px;
-
 }
 
 .cardItem{

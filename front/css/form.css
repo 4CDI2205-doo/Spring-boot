@@ -9,6 +9,14 @@
     margin: 10px auto;
 }
 
+.radioGroup{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+}
+
 .register_form textarea{
     resize: none;
 }
@@ -17,6 +25,15 @@
     width: 100px;
     margin-right: 0;
     margin-left: auto;
+}
+
+/* 検索フォーム関連 */
+.companyFormSearch{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    width: 100%;
 }
 
 /* ポップアップ関連 */
