@@ -17,7 +17,7 @@
 
         <main>
             <div class="container">
-                <h1 class="main_target">新規登録</h1>
+                <h1 class="main_target">企業登録</h1>
                 <form id="register_form">
                     <label for="company_name">企業名：</label>
                     <input type="text" id="company_name" placeholder="例：NTTデータ">
@@ -27,6 +27,28 @@
                     <input type="number" id="starting_salary" placeholder="例：3000000" min="0">
                     <label for="annual_holidays">年間休日：</label>
                     <input type="number" id="annual_holidays" placeholder="例：120" min="0">
+
+                    <!-- UserCompany関連 -->
+                    <label for="interestLevel">志望度：</label>
+                    <div class="radioGroup">
+                        <label><input type="radio" name="interestLevel" value="S">S</label> 
+                        <label><input type="radio" name="interestLevel" value="A">A</label> 
+                        <label><input type="radio" name="interestLevel" value="B">B</label> 
+                        <label><input type="radio" name="interestLevel" value="C">C</label>
+                    </div>
+                    <label for="selectionStatus">選考状況：</label>
+                    <div class="radioGroup">
+                        <label><input type="radio" name="selectionStatus" value="内定">内定</label> 
+                        <label><input type="radio" name="selectionStatus" value="最終面接">最終面接</label> 
+                        <label><input type="radio" name="selectionStatus" value="二次面接">二次面接</label> 
+                        <label><input type="radio" name="selectionStatus" value="一次面接">一次面接</label> 
+                        <label><input type="radio" name="selectionStatus" value="インターン参加">インターン参加</label>
+                        <label><input type="radio" name="selectionStatus" value="インターン選考">インターン選考</label>
+                        <label><input type="radio" name="selectionStatus" value="エントリー">エントリー</label>
+                        <label><input type="radio" name="selectionStatus" value="なし">なし</label>
+                    </div>
+                    <label for="nextDate">次の日程：</label>
+                    <input type="date" id="nextDate">
                     <button id="form_submit" type="submit">送信</button>
                 </form>
             </div>

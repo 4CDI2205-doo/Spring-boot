@@ -10,14 +10,17 @@ public class CompanyService {
     private final CompanyRepository companyRepository;
     private final UserCompanyRepository userCompanyRepository;
     private final UserRepository userRepository;
+    private final GbizInfoService gbizInfoService;
 
     public CompanyService(
         CompanyRepository companyRepository,
         UserCompanyRepository userCompanyRepository,
-        UserRepository userRepository){
+        UserRepository userRepository,
+        GbizInfoService gbizInfoService){
             this.companyRepository = companyRepository;
             this.userCompanyRepository = userCompanyRepository;
             this.userRepository = userRepository;
+            this.gbizInfoService = gbizInfoService;
     }
 
     // ユーザーID検索
@@ -107,4 +110,16 @@ public class CompanyService {
         }
         return responses;
     }
+
+
+
+    // 企業検索
+    public List<CompanySearchResponse> searchCompany(String companyName){
+        return gbizInfoService.searchCompany(companyName);    
+    }
+
+    // // 法人番号から詳細取得
+    // public String getCompanyDetail(String corporateNumber){
+    //     return gbizInfoService.getCompanyDetail(corporateNumber);
+    // }
 }
