@@ -37,10 +37,15 @@ public class GbizInfoService {
     }
 
     // // 法人番号から詳細取得
-    // public String getCompanyDetail(String corporateNumber){
-    //     return restClient.get()
-    //         .uri("/hojin/{corporateNumber}",corporateNumber)
-    //         .retrieve()
-    //         .body(String.class);
-    // }
+    public List<CompanySearchResponse> getCompanyDetail(String corporateNumber){
+        GbizInfoResponse response = restClient.get()
+            .uri("/hojin/{corporateNumber}",corporateNumber)
+            .retrieve()
+            .body(GbizInfoResponse.class);
+        
+        if(response == null || response.getHojinInfos() == null){
+            return List.of();
+        }
+        return response.getHojinInfos();
+    }
 }

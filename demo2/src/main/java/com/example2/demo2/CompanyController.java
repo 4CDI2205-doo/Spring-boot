@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import java.util.Map;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController 
@@ -73,8 +74,18 @@ public class CompanyController {
         }
         
         // 企業名検索
-        List<CompanySearchResponse> companySearchResponse = companyService.searchCompany(request.getCompanyName());
-        System.out.println(companySearchResponse);
+        List<CompanySearchResponse> companySearchNumber = companyService.searchCompany(request.getCompanyName());
+
+        // 企業詳細リスト
+        List<CompanySearchResponse> companySearchResponse = new ArrayList<>();
+
+        // 検索企業の企業ナンバー取得
+        for (CompanySearchResponse company : companySearchNumber){
+            String corporateNumber = company.getCorporate_number();
+
+            List<CompanySearchResponse> detail = companyService.getCompanyDetail(corporateNumber);
+             companySearchResponse.addAll(detail);
+        }
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(companySearchResponse);

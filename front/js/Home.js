@@ -23,16 +23,23 @@ function searchCompanyList(searchResults,place){
         const companyName = document.createElement("h1");
         const companycorporateNumber = document.createElement("p");
         const companyLocation = document.createElement("p");
+        const companyEmployeeCount = document.createElement("p");
 
         companyCard.classList.add("cardItem");
 
         companyName.textContent = d.name;
         companycorporateNumber.textContent = `企業番号：${d.corporate_number}`;
         companyLocation.textContent = `本社：${d.location}`;
+        if (d.employee_number == null){
+            companyEmployeeCount.textContent = `従業員数：非公開`
+        }else{
+            companyEmployeeCount.textContent = `従業員数：${d.employee_number}`;
+        }
 
         companyCard.appendChild(companyName);
         companyCard.appendChild(companycorporateNumber);
         companyCard.appendChild(companyLocation);
+        companyCard.appendChild(companyEmployeeCount);
 
         place.appendChild(companyCard);
     })
@@ -92,8 +99,6 @@ searchForm.addEventListener("submit",function(event){
     })
     .then((data) => {
         console.log("検索企業の取得に成功しました。");
-        console.log("検索結果",data);
-        console.log("配列かどうか",Array.isArray(data))
         companyListMain.style.display = "flex";
         searchHistory.replaceChildren();
         searchCompanyList(data,searchHistory);
