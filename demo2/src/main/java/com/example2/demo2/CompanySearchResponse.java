@@ -14,4 +14,6 @@ public class CompanySearchResponse {
 
     private String name;
     private String location;
+
+    private String employee_number;
 }

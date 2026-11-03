@@ -118,8 +118,8 @@ public class CompanyService {
         return gbizInfoService.searchCompany(companyName);    
     }
 
-    // // 法人番号から詳細取得
-    // public String getCompanyDetail(String corporateNumber){
-    //     return gbizInfoService.getCompanyDetail(corporateNumber);
-    // }
+    // 法人番号から詳細取得
+    public List<CompanySearchResponse> getCompanyDetail(String corporateNumber){
+        return gbizInfoService.getCompanyDetail(corporateNumber);
+    }
 }
