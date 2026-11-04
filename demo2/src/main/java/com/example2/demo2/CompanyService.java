@@ -1,5 +1,7 @@
 package com.example2.demo2;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.ArrayList;
@@ -121,5 +123,22 @@ public class CompanyService {
     // 法人番号から詳細取得
     public List<CompanySearchResponse> getCompanyDetail(String corporateNumber){
         return gbizInfoService.getCompanyDetail(corporateNumber);
+    }
+
+    // 検索企業処理
+    public List<CompanySearchResponse> mainSearchCompany(String companyName){
+        // 企業名検索
+        List<CompanySearchResponse> companySearchNumber = searchCompany(companyName);
+        // 企業詳細リスト
+        List<CompanySearchResponse> companySearchResponse = new ArrayList<>();
+
+        // 検索企業の企業ナンバー取得
+        for (CompanySearchResponse company : companySearchNumber){
+            String corporateNumber = company.getCorporate_number();
+
+            List<CompanySearchResponse> detail = getCompanyDetail(corporateNumber);
+             companySearchResponse.addAll(detail);
+        }
+        return companySearchResponse;
     }
 }

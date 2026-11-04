@@ -72,22 +72,8 @@ public class CompanyController {
                 .status(HttpStatus.UNAUTHORIZED)
                 .body(Map.of("message","ログインが必要です"));
         }
-        
-        // 企業名検索
-        List<CompanySearchResponse> companySearchNumber = companyService.searchCompany(request.getCompanyName());
-
-        // 企業詳細リスト
-        List<CompanySearchResponse> companySearchResponse = new ArrayList<>();
-
-        // 検索企業の企業ナンバー取得
-        for (CompanySearchResponse company : companySearchNumber){
-            String corporateNumber = company.getCorporate_number();
-
-            List<CompanySearchResponse> detail = companyService.getCompanyDetail(corporateNumber);
-             companySearchResponse.addAll(detail);
-        }
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(companySearchResponse);
+            .body(companyService.mainSearchCompany(request.getCompanyName()));
     }
 }
