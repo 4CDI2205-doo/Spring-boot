@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import java.util.Map;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController 
@@ -72,8 +71,11 @@ public class CompanyController {
                 .status(HttpStatus.UNAUTHORIZED)
                 .body(Map.of("message","ログインが必要です"));
         }
+        // 検索結果取得
+        List<CompanySearchResponse> companySearchResponse = companyService.mainSearchCompany(request.getCompanyName());
+        // 検索結果返却
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(companyService.mainSearchCompany(request.getCompanyName()));
+            .body(companySearchResponse);
     }
 }
