@@ -1,10 +1,9 @@
 package com.example2.demo2;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -139,6 +138,10 @@ public class CompanyService {
             List<CompanySearchResponse> detail = getCompanyDetail(corporateNumber);
              companySearchResponse.addAll(detail);
         }
+        companySearchResponse.sort(
+            Comparator.comparing(CompanySearchResponse::getEmployee_number,
+            Comparator.nullsLast(Comparator.reverseOrder()))
+        );
         return companySearchResponse;
     }
 }

@@ -4,8 +4,14 @@ const history = document.getElementById("history");
 const searchHistory = document.getElementById("searchHistory");
 const searchForm = document.getElementById("companyFormSearch");
 const companyListMain = document.getElementById("companyListMain");
+const moreSearchButton = document.getElementById("moreSearchButton");
+const moreFavoriteButton = document.getElementById("moreFavoriteButton");
 
-console.log(history);
+let displaySearchCount = 0;
+let displayFavoriteCount = 0;
+const displayLimit = 9;
+let currentCompanyList = [];
+let currentFavoriteCompanyList = [];
 
 // エラー時ポップアップ
 function errorPopup(){
@@ -18,7 +24,11 @@ function errorPopup(){
 }
 // 検索結果表示フロントエンド処理
 function searchCompanyList(searchResults,place){
-    searchResults.forEach((d) => {
+    const nextSearchCompanyList = searchResults.slice(
+        displaySearchCount,
+        displaySearchCount += displayLimit
+    )
+    nextSearchCompanyList.forEach((d) => {
         const companyCard = document.createElement("div");
         const companyName = document.createElement("h1");
         const companycorporateNumber = document.createElement("p");
@@ -43,11 +53,23 @@ function searchCompanyList(searchResults,place){
 
         place.appendChild(companyCard);
     })
+    // もっと見るボタン
+    if (displaySearchCount >= searchResults.length){
+        moreSearchButton.style.display = "none";
+    }else{
+        moreSearchButton.style.display = "flex";
+    }
+    // 検索結果表示
+    companyListMain.style.display = "flex";
 }
 
-// 企業一覧表示フロントエンド処理
+// 登録企業一覧表示フロントエンド処理
 function companyList(companyList,place){
-    companyList.forEach((d) => {
+    const nextFavoriteCompanyList = companyList.slice(
+        displayFavoriteCount,
+        displayFavoriteCount += displayLimit
+    )
+    nextFavoriteCompanyList.forEach((d) => {
         const companyCard = document.createElement("div");
         const companyName = document.createElement("h1");
         const companyEmployeeCount = document.createElement("p");
@@ -68,10 +90,19 @@ function companyList(companyList,place){
 
         place.appendChild(companyCard);
     })
+    if (displayFavoriteCount >= companyList.length){
+        moreFavoriteButton.style.display = "none";
+    }else{
+        moreFavoriteButton.style.display = "flex";
+    }
 }
-
+// ボタン関連
 closeButton.addEventListener("click",function(){
    popup.style.display = "none";
+})
+
+moreSearchButton.addEventListener("click",function(){
+    searchCompanyList(currentCompanyList,searchHistory)
 })
 
 
@@ -99,9 +130,10 @@ searchForm.addEventListener("submit",function(event){
     })
     .then((data) => {
         console.log("検索企業の取得に成功しました。");
-        companyListMain.style.display = "flex";
+        currentCompanyList = data;
+        displaySearchCount = 0;
         searchHistory.replaceChildren();
-        searchCompanyList(data,searchHistory);
+        searchCompanyList(currentCompanyList,searchHistory);
     })
     .catch((error) => {
         errorPopup();
