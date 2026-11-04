@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import java.util.Map;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController 
@@ -72,20 +71,9 @@ public class CompanyController {
                 .status(HttpStatus.UNAUTHORIZED)
                 .body(Map.of("message","ログインが必要です"));
         }
-        
-        // 企業名検索
-        List<CompanySearchResponse> companySearchNumber = companyService.searchCompany(request.getCompanyName());
-
-        // 企業詳細リスト
-        List<CompanySearchResponse> companySearchResponse = new ArrayList<>();
-
-        // 検索企業の企業ナンバー取得
-        for (CompanySearchResponse company : companySearchNumber){
-            String corporateNumber = company.getCorporate_number();
-
-            List<CompanySearchResponse> detail = companyService.getCompanyDetail(corporateNumber);
-             companySearchResponse.addAll(detail);
-        }
+        // 検索結果取得
+        List<CompanySearchResponse> companySearchResponse = companyService.mainSearchCompany(request.getCompanyName());
+        // 検索結果返却
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(companySearchResponse);
